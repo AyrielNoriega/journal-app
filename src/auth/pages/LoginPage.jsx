@@ -1,12 +1,38 @@
 import { Link as LinkRouterDom } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Google } from '@mui/icons-material';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+
 import { AuthLayout } from '../layout/AuthLayout';
+import { useForm } from '../../hooks';
+import { checkingAuthencation, startGoogleSignIn } from '../../store/auth';
 
 export const LoginPage = () => {
+    const { email, password, onInputChange } = useForm({
+        email: 'ayriel@gmail.com',
+        password: '123456'
+    });
+
+    const { auth } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(auth);
+        dispatch(checkingAuthencation());
+    };
+
+    const onGoogleSignIn = (e) => {
+        e.preventDefault();
+
+        console.log('onGoogleSignIn');
+        dispatch(startGoogleSignIn());
+    };
+
     return (
         <AuthLayout title="Login">
-            <form>
+            <form onSubmit={ onSubmit }>
                 <Grid container>
                     <Grid
                         item
@@ -16,10 +42,14 @@ export const LoginPage = () => {
                         }}
                     >
                         <TextField
+                            autoComplete="username"
                             label="Correo"
                             type="email"
                             placeholder="correo@gmail.com"
                             fullWidth
+                            name='email'
+                            value={ email }
+                            onChange={ onInputChange }
                         />
                     </Grid>
 
@@ -31,10 +61,14 @@ export const LoginPage = () => {
                         }}
                     >
                         <TextField
+                            autoComplete="current-password"
                             label="Contraseña"
                             type="password"
                             placeholder="Contraseña"
                             fullWidth
+                            name='password'
+                            value={ password }
+                            onChange={ onInputChange }
                         />
                     </Grid>
 
@@ -51,7 +85,7 @@ export const LoginPage = () => {
                             xs={ 12 }
                             sm={ 6 }
                         >
-                            <Button variant="contained" fullWidth>
+                            <Button variant="contained" fullWidth type='submit'>
                                     Login
                             </Button>
                         </Grid>
@@ -60,7 +94,11 @@ export const LoginPage = () => {
                             xs={ 12 }
                             sm={ 6 }
                         >
-                            <Button variant="contained" fullWidth>
+                            <Button
+                                variant="contained"
+                                fullWidth
+                                onClick={ onGoogleSignIn }
+                            >
                                 <Google />
                                 <Typography
                                     sx={{
