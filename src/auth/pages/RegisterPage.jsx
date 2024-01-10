@@ -1,9 +1,11 @@
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { Link as LinkRouterDom } from 'react-router-dom';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { useState } from 'react';
+import { startCreatingUserWithEmailPassword } from '../../store/auth';
 
 const formData = {
     email: '',
@@ -25,11 +27,16 @@ export const RegisterPage = () => {
 
     const [formSubmited, setFormSubmited] = useState(false);
 
-    console.log(isFormValid);
+    const dispatch = useDispatch();
+
     const onSubmit = (e) => {
         e.preventDefault();
         setFormSubmited(true);
+
+        if (!isFormValid) return false;
+
         console.log('submit', formState);
+        dispatch(startCreatingUserWithEmailPassword(formState));
     };
 
     return (
