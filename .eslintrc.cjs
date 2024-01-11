@@ -44,6 +44,7 @@ module.exports = {
         'no-undef': RULES.WARN,
         'react/prop-types': RULES.WARN,
         'react/no-children-prop': RULES.WARN,
-        'react/no-unknown-property': RULES.WARN
+        'react/no-unknown-property': RULES.WARN,
+        'no-extra-boolean-cast': RULES.OFF
     }
 };
