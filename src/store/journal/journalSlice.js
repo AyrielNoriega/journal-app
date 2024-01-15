@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    isSaving: true, // para saber si estoy guardando
+    isSaving: false, // para saber si estoy guardando
     messageSaved: '',
     notes: [],
-    active: null
+    active: null // contiene la nota activa
     // active: {
     //     id: 'abc123',
     //     title: '',
@@ -18,11 +18,15 @@ export const journalSlice = createSlice({
     name: 'journal',
     initialState,
     reducers: {
+        savingNewNote: (state, action) => {
+            state.isSaving = true;
+        },
         addNewEmptyNote: (state, action) => {
-
+            state.notes.push(action.payload);
+            state.isSaving = false;
         },
         setActiveNote: (state, action) => {
-
+            state.active = action.payload;
         },
         setNotes: (state, action) => {
 
@@ -40,6 +44,6 @@ export const journalSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = journalSlice.actions;
+export const { savingNewNote, addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById } = journalSlice.actions;
 
 // export default journalSlice.reducer;
