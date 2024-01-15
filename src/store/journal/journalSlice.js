@@ -18,7 +18,7 @@ export const journalSlice = createSlice({
     name: 'journal',
     initialState,
     reducers: {
-        savingNewNote: (state, action) => {
+        savingNewNote: (state) => {
             state.isSaving = true;
         },
         addNewEmptyNote: (state, action) => {
