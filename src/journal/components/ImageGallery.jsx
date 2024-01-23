@@ -1,16 +1,17 @@
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-export const ImageGallery = () => {
+export const ImageGallery = ({ images = [] }) => {
+    console.log(images);
     return (
         <ImageList sx={{ width: '100%', height: 450 }} cols={4} rowHeight={100}>
             {
-                itemData.map((item) => (
-                    <ImageListItem key={item.img}>
+                images.map((image) => (
+                    <ImageListItem key={image}>
                         <img
-                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                            alt={item.title}
+                            srcSet={`${image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                            src={`${image}?w=164&h=164&fit=crop&auto=format`}
+                            alt="imagen de la nota"
                             loading="lazy"
                         />
                     </ImageListItem>

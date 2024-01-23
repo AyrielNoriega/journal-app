@@ -8,11 +8,13 @@ import { useForm } from '../../hooks';
 import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
 import { useMemo } from 'react';
 
+const initialForm = {
+    email: '',
+    password: ''
+};
+
 export const LoginPage = () => {
-    const { email, password, onInputChange } = useForm({
-        email: '',
-        password: ''
-    });
+    const { email, password, onInputChange } = useForm(initialForm);
 
     const { status, errorMessage } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
